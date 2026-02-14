@@ -1,78 +1,425 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Enter Password</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #fffff;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine's Day</title>
 
-        .box {
-            background: #fffff;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            width: 300px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500&family=Dancing+Script&display=swap" rel="stylesheet">
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 15px;
-            border-radius: 8px;
-            border: none;
-            font-size: 16px;
-        }
+<style>
 
-        button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            background-color: #ff758c;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: white;
+  overflow-x: hidden;
+}
 
-        .error {
-            color: #ff4d4d;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    </style>
+/* ===== BANNER ===== */
+#top-banner {
+  display: none; /* hidden initially, shown only after password */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.25); /* glass effect */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: center;
+  font-family: 'Sacramento', cursive;
+  font-size: 2rem;
+  color: #d63384;
+  padding: 15px 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ===== PASSWORD SCREEN ===== */
+
+#password-screen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #ffd6e7, #ffffff);
+}
+
+#password-screen h2 {
+  font-weight: 400;
+}
+
+#password-screen input {
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+#password-screen button {
+  margin-top: 15px;
+  padding: 8px 20px;
+  border: none;
+  background: #d63384;
+  color: white;
+  cursor: pointer;
+}
+
+#error-message {
+  margin-top: 15px;
+  color: #c2185b;
+}
+
+/* ===== GRADIENT SECTION ===== */
+
+.gradient-section {
+  background: linear-gradient(to bottom, #ffd6e7, #ffffff);
+  margin-top: 0; /* ensures it starts at the very top */
+}
+
+/* ===== HERO ===== */
+
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  transition: opacity 0.5s ease;
+}
+
+.hero h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 5rem;
+  color: #d63384;
+}
+
+/* ===== SECTIONS ===== */
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 10%;
+  gap: 60px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section.reverse {
+  flex-direction: row-reverse;
+}
+
+/* ===== GLASS PANELS ===== */
+
+.text {
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.8;
+
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.text h2 {
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.text ul {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.text li {
+  margin-bottom: 12px;
+}
+
+/* ===== TAROT CARDS ===== */
+
+.card-container {
+  perspective: 1200px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.card {
+  width: 100%;
+  height: 500px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(.4,.2,.2,1);
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-front {
+  background: linear-gradient(135deg, #ffb6d5, #ffe6f2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Sacramento', cursive;
+  font-size: 2rem;
+  color: #c2185b;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tilt effect */
+.tilt-left { transform: rotate(-3deg); }
+.tilt-right { transform: rotate(3deg); }
+
+/* ===== WHITE SECTION ===== */
+
+.white-section {
+  background: white;
+  text-align: center;
+  padding: 150px 10% 0 10%; /* no bottom padding */
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.white-section.visible {
+  opacity: 1;
+}
+
+.white-section h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+/* Bottom photo pop-up */
+
+.bottom-photo-wrapper {
+  position: relative;
+  height: 400px;  /* half of previous */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.bottom-photo {
+  width: 900px;          /* keep width */
+  max-width: 98vw;
+  height: auto;           /* let height adjust */
+  transform: translateY(500px) scale(0.9);
+  opacity: 0;
+
+  transition: transform 1.2s cubic-bezier(.2,.8,.2,1.2),
+              opacity 0.8s ease;
+}
+
+/* Visible trigger */
+.white-section.visible .bottom-photo {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Prevent scrolling past bottom */
+body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== ANIMATION ===== */
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+</style>
 </head>
-
 <body>
 
-    <div class="box">
-        <h2>Enter the Secret Password </h2>
-        <input type="password" id="passwordInput" placeholder="Password">
-        <button onclick="checkPassword()">Enter</button>
-        <div class="error" id="errorMessage"></div>
+<!-- PASSWORD SCREEN -->
+
+<div id="password-screen">
+  <h2>Enter password</h2>
+  <input type="password" id="password-input">
+  <button onclick="checkPassword()">Enter</button>
+  <div id="error-message"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div id="main-content" style="display:none; padding-top: 0;"> <!-- removed padding for banner because banner will appear after password -->
+
+<!-- BANNER ADDED -->
+<div id="top-banner">
+  Forever grateful for you!
+</div>
+
+<div class="gradient-section">
+
+<div class="hero" id="hero">
+  <h1>Happy Valentine's Day ❤️</h1>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="text">
+    <h2>Things I love about you:</h2>
+    <ul>
+      <li>You smile with joy and it makes me feel happy!</li>
+      <li>You're kind and gentle. I feel safe when I'm with you!</li>
+      <li>You're an amazing baker. Your desserts are irresistible!</li>
+      <li>You love me unconditionally, and I feel comfortable being myself around you!</li>
+      <li>You always make me laugh. Laughing with you feels really lovely!</li>
+    </ul>
+  </div>
+
+  <div class="card-container tilt-left">
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-face card-front">💌</div>
+      <div class="card-face card-back">
+        <img src="photos/photo1.jpg">
+      </div>
     </div>
+  </div>
+</div>
 
-    <script>
-        function checkPassword() {
-            const correctPassword = "30/06/2023";  // CHANGE THIS
-            const userInput = document.getElementById("passwordInput").value;
+<!-- SECTION 2 -->
+<div class="section reverse">
+  <div class="text">
+    <h2>Some of my favourite memories with you:</h2>
+    <ul>
+      <li>Celebrating your birthday at your house was amazing. I loved spending that time with you!</li>
+      <li>Coming over the second time was really fun. It was so nice being alone with you!</li>
+      <li>Our Sugar Marmalade dates were really warm and cozy, and I can't ever forget our first KISS!</li>
+      <li>This one may be a bit random but I really enjoyed singing with you on call!</li>
+    </ul>
+  </div>
 
-            if (userInput === correctPassword) {
-                window.location.href = "main.html";
-            } else {
-                document.getElementById("errorMessage").textContent = "Password given is Incorrect.";
-            }
-        }
-    </script>
+  <div class="card-container tilt-right">
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-face card-front">💌</div>
+      <div class="card-face card-back">
+        <img src="photos/photo2.jpg">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="text">
+    <h2>Things you remind me of:</h2>
+    <ul>
+      <li>Your warmth reminds me of a fresh cinnamon roll!</li>
+      <li>Your face reminds me of an orange sunset on a summer evening!</li>
+      <li>Your kindness reminds me of a tight hug!</li>
+      <li>Your eyes remind me of a gorgeous lake view, the kind where the lake is sparkling and you can't look away!</li>
+    </ul>
+  </div>
+
+  <div class="card-container tilt-left">
+    <div class="card" onclick="this.classList.toggle('flipped')">
+      <div class="card-face card-front">💌</div>
+      <div class="card-face card-back">
+        <img src="photos/photo3.jpg">
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- WHITE SECTION -->
+
+<div class="white-section" id="white-section">
+  <h2>Our son and I love you!</h2>
+
+  <div class="bottom-photo-wrapper">
+    <img src="photos/photo4.jpg" class="bottom-photo">
+  </div>
+</div>
+
+</div>
+
+<script>
+
+const PASSWORD = "30/06/2023";
+
+function checkPassword() {
+  const input = document.getElementById("password-input").value;
+  const error = document.getElementById("error-message");
+
+  if(input === PASSWORD) {
+    document.getElementById("password-screen").style.display = "none";
+    document.getElementById("main-content").style.display = "block";
+    document.getElementById("top-banner").style.display = "block"; // show banner
+    document.body.style.overflowY = "auto";  // enable scroll now
+  } else {
+    error.textContent = "Incorrect password";
+  }
+}
+
+const sections = document.querySelectorAll('.section');
+const whiteSection = document.getElementById('white-section');
+const hero = document.getElementById('hero');
+
+window.addEventListener('scroll', () => {
+
+  const scrollY = window.scrollY;
+  hero.style.opacity = 1 - scrollY / 400;
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 100) {
+      section.classList.add('visible');
+    } else {
+      section.classList.remove('visible');
+    }
+  });
+
+  const whiteRect = whiteSection.getBoundingClientRect();
+  if(whiteRect.top < window.innerHeight * 0.8) {
+    whiteSection.classList.add('visible');
+  }
+
+});
+
+</script>
 
 </body>
 </html>
